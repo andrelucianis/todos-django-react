@@ -102,7 +102,7 @@ def test_update_todo(auth_client, todo, category):
     assert response.data["description"] == "Updated Todo"
     assert response.data["is_completed"] is True
     assert len(response.data["category"]) == 1
-    assert response.data["category"][0] == category.name
+    assert response.data["category"][0]["name"] == category.name
 
 
 @pytest.mark.django_db
