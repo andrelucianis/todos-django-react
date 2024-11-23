@@ -58,3 +58,20 @@ Regular user:
 - Username: `testuser`
 - Email: `test@email.com`
 - Password: `testuser123`
+
+## Adding Todos and Categories models, serializers, views and urls
+
+The next step was to create the models and API needed to manage the todos.
+
+Rules used in the models:
+- A todo should have only one owner and is protected from other users
+- A todo may have one or more categories
+- A category should have only one owner and is protected from other users
+- A user can not have categories with the same name
+
+After the models were created, the migrations were applied to the database:
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```

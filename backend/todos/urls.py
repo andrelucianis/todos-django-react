@@ -18,11 +18,32 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from knox import views as knox_views
-from core.views import LoginView, RegisterUserView
+from core.views import (
+    LoginView,
+    RegisterUserView,
+    TodoListCreateView,
+    TodoDetailUpdateDestroyView,
+    CategoryListCreateView,
+    CategoryDetailUpdateDestroyView,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/register/", RegisterUserView.as_view(), name="register"),
     path("api/login/", LoginView.as_view(), name="knox_login"),
     path("api/logout/", knox_views.LogoutView.as_view(), name="knox_logout"),
+    path("api/todos/", TodoListCreateView.as_view(), name="todo-list-create"),
+    path(
+        "api/todos/<int:pk>/",
+        TodoDetailUpdateDestroyView.as_view(),
+        name="todo-detail-update-destroy",
+    ),
+    path(
+        "api/categories/", CategoryListCreateView.as_view(), name="category-list-create"
+    ),
+    path(
+        "api/categories/<int:pk>/",
+        CategoryDetailUpdateDestroyView.as_view(),
+        name="category-detail-update-destroy",
+    ),
 ]
