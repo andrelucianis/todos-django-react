@@ -2,7 +2,6 @@ include:
   - ../database/docker-compose.yaml
 
 services:
-
   django:
     build: .
     ports:
@@ -10,7 +9,5 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     environment:
       - DATABASE_URL=postgres://postgres:root@postgres:5432/todos
-    extra_hosts:
-        - host.docker.internal:host-gateway
     depends_on:
       - postgres
