@@ -1,10 +1,10 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { ApiProvider } from "./api";
 import { AuthProtected, AuthProvider } from "./authentication";
-import AuthPage from "./pages/Auth";
 import { Toaster } from "./components/ui/toaster";
-import React from "react";
+import { Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import AuthPage from "./pages/Auth";
 import TodosPage from "./pages/Todos";
 
 function App() {
@@ -17,26 +17,26 @@ function App() {
               <Route
                 path="/register"
                 element={
-                  <React.Suspense>
+                  <Suspense>
                     <AuthPage variant="register" />
-                  </React.Suspense>
+                  </Suspense>
                 }
               />
               <Route
                 path="/login"
                 element={
-                  <React.Suspense>
+                  <Suspense>
                     <AuthPage variant="login" />
-                  </React.Suspense>
+                  </Suspense>
                 }
               />
               <Route
                 path="/todos"
                 element={
                   <AuthProtected>
-                    <React.Suspense>
+                    <Suspense>
                       <TodosPage />
-                    </React.Suspense>
+                    </Suspense>
                   </AuthProtected>
                 }
               />
