@@ -89,7 +89,7 @@ export class TodosApi {
     }
 
     // Todos CRUD
-    async create(token: string, description: string, is_completed: boolean) {
+    async create(token: string, description: string) {
         const res = await fetch(`${this.baseUrl}/api/todos/`, {
             method: "POST",
             headers: {
@@ -98,7 +98,6 @@ export class TodosApi {
             },
             body: JSON.stringify({
                 description: description,
-                is_completed: is_completed,
             }),
         });
 
@@ -276,30 +275,6 @@ export class TodosApi {
         if (res.status === 404) {
             throw new NotFoundException();
         }
-
-        if (res.status === 401) {
-            throw new AccessDeniedException();
-        }
-
-        if (res.status !== 200) {
-            throw new UnknownErrorException(res.status, await res.text());
-        }
-
-        return res.json() as Promise<Category>;
-    }
-
-    async updateCategory(token: string, description: string | null, is_completed: boolean | null) {
-        const res = await fetch(`${this.baseUrl}/api/todos/`, {
-            method: "POST",
-            headers: {
-                Authorization: `Token ${token}`,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                description: description,
-                is_completed: is_completed,
-            }),
-        });
 
         if (res.status === 401) {
             throw new AccessDeniedException();
