@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { UserRegisterForm } from "@/components/user-register-form";
@@ -13,26 +14,26 @@ export default function AuthPage({ variant }: AuthPageProps) {
       <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <div className="absolute right-4 top-4 flex space-x-2 md:right-8 md:top-8">
           {variant === "register" ? (
-            <a
-              href="/login"
+            <Link
+              to="/login"
               className={cn(buttonVariants({ variant: "ghost" }))}
             >
               Login
-            </a>
+            </Link>
           ) : (
-            <a
-              href="/register"
+            <Link
+              to="/register"
               className={cn(buttonVariants({ variant: "ghost" }))}
             >
               Register
-            </a>
+            </Link>
           )}
           <ModeToggle />
         </div>
         <div
           className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex"
           style={{
-            backgroundImage: "url('/productivity.jpg')",
+            backgroundImage: "url('/todos-django-react/productivity.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}

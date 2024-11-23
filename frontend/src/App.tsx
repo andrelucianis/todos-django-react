@@ -12,7 +12,7 @@ function App() {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <ApiProvider baseUrl={import.meta.env.VITE_APP_API_URL!}>
         <AuthProvider>
-          <BrowserRouter>
+          <BrowserRouter basename="/todos-django-react/">
             <Routes>
               <Route
                 path="/register"

@@ -110,3 +110,8 @@ npm i -D @types/node
 ```
 
 I've decided to use [shadcn/ui](https://ui.shadcn.com/) for the components, both because it looks good and I wanted to try it.
+
+
+## Adding pages
+
+Then, I've created the register/login pages, and finally the todos page, where the user can do CRUD operations on todos and categories.
