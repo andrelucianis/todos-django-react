@@ -11,14 +11,24 @@ Todos application built with Django, PostgreSQL and React
 To start the server, clone the repository and run:
 
 ```bash
+cd database
+docker compose up -d
+docker exec -i database-postgres-1 psql -U postgres < db_dump.sql
+```
+
+After that, stop the container.
+
+This will populate the database with the dump and populate it with the following user and a set of todos:
+- Username: usertest
+- Password: usertest123
+
+Then, on the project root directory:
+
+```bash
 docker compose up
 ```
 
-This will start the Django server on port `8000`, a PostgreSQL database on port `5432` and pgAdmin on port `8888`.
-
-The database is already populated with a user with a set of todos:
-- Username: usertest
-- Password: usertest123
+This will start the Django server on port `8000`, the PostgreSQL database on port `5432` and pgAdmin on port `8888`.
 
 #### Frontend
 
