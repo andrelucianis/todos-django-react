@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,6 +46,8 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ("knox.auth.TokenAuthentication",),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 20,
 }
 
 MIDDLEWARE = [
@@ -81,15 +84,17 @@ WSGI_APPLICATION = "todos.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+IS_TESTING = "pytest" in sys.modules
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "todos",
-        "USER": "postgres",
-        "PASSWORD": "root",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
+        "ENGINE": ("django.db.backends.sqlite3" if IS_TESTING else "django.db.backends.postgresql"),
+        "NAME": ":memory:" if IS_TESTING else "todos",
+        "USER": "postgres" if not IS_TESTING else "",
+        "PASSWORD": "root" if not IS_TESTING else "",
+        "HOST": "localhost" if not IS_TESTING else "",
+        "PORT": "5432" if not IS_TESTING else "",
+    },
 }
 
 

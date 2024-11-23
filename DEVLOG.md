@@ -85,3 +85,7 @@ pipenv install pytest pytest-django
 ```
 
 I've then added a `pytest.ini` file, wrote some tests and added a pipenv shortcut on `Pipfile` to run the tests with `pipenv run test`.
+
+## Adding filter and pagination
+
+Some configurations were added to allow filtering results.

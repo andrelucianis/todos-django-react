@@ -1,10 +1,11 @@
 from django.contrib.auth import login
-from rest_framework import permissions, generics, status
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import permissions, generics, status, filters
 from rest_framework.response import Response
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.views import LoginView as KnoxLoginView
 from knox.auth import TokenAuthentication
-from core.serializers import RegisterUserSerializer
+from core.filters import TodoFilter
 from core.models import Todo, Category
 from core.serializers import (
     RegisterUserSerializer,
@@ -34,9 +35,7 @@ class RegisterUserView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        return Response(
-            {"user": RegisterUserSerializer(user).data}, status=status.HTTP_201_CREATED
-        )
+        return Response({"user": RegisterUserSerializer(user).data}, status=status.HTTP_201_CREATED)
 
 
 class TodoListCreateView(generics.ListCreateAPIView):
@@ -47,6 +46,9 @@ class TodoListCreateView(generics.ListCreateAPIView):
 
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    search_fields = ["description", "category__name"]
+    filterset_class = TodoFilter
 
     def get_queryset(self):
         return Todo.objects.filter(owner=self.request.user)
@@ -60,6 +62,9 @@ class TodoDetailUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    search_fields = ["description", "category__name"]
+    filterset_class = TodoFilter
 
     def get_queryset(self):
         return Todo.objects.filter(owner=self.request.user)
@@ -69,6 +74,8 @@ class CategoryListCreateView(generics.ListCreateAPIView):
     serializer_class = CategorySerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["name"]
 
     def get_queryset(self):
         return Category.objects.filter(owner=self.request.user)
@@ -78,6 +85,8 @@ class CategoryDetailUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["name"]
 
     def get_queryset(self):
         return Category.objects.filter(owner=self.request.user)
