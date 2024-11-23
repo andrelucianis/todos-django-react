@@ -89,3 +89,7 @@ I've then added a `pytest.ini` file, wrote some tests and added a pipenv shortcu
 ## Adding filter and pagination
 
 Some configurations were added to allow filtering results.
+
+## Dockerizing application
+
+To make initialization easier, I've created a `Dockerfile` and `docker-compose.yaml` files to start both the server and database in one go.

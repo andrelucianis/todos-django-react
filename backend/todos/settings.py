@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import sys
+import dj_database_url
+import environ
+
+get_env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -87,15 +92,16 @@ WSGI_APPLICATION = "todos.wsgi.application"
 IS_TESTING = "pytest" in sys.modules
 
 DATABASES = {
-    "default": {
-        "ENGINE": ("django.db.backends.sqlite3" if IS_TESTING else "django.db.backends.postgresql"),
-        "NAME": ":memory:" if IS_TESTING else "todos",
-        "USER": "postgres" if not IS_TESTING else "",
-        "PASSWORD": "root" if not IS_TESTING else "",
-        "HOST": "localhost" if not IS_TESTING else "",
-        "PORT": "5432" if not IS_TESTING else "",
-    },
+    "default": dj_database_url.config(default=get_env("DATABASE_URL")),
 }
+
+if IS_TESTING:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": ":memory:",
+        },
+    }
 
 
 # Password validation

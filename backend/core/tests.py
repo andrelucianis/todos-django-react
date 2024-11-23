@@ -154,7 +154,6 @@ def test_filter_todos(auth_client, user, category):
     url = reverse("todo-list-create")
     response = auth_client.get(url, {"search": "Example"})
     assert response.status_code == status.HTTP_200_OK
-    print(response.data)
     assert all("Example" in todo["description"] for todo in response.data["results"])
 
 

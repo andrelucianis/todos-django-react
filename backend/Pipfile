@@ -12,9 +12,11 @@ django-filter = "*"
 django-rest-knox = "*"
 pytest = "*"
 pytest-django = "*"
+dj-database-url = "*"
+django-environ = "*"
 
 [scripts]
-test = "pytest -rP"
+test = "pytest"
 
 [dev-packages]
 
