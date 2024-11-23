@@ -1,4 +1,4 @@
-# Develog
+# Devlog
 
 ## Creating the backend
 
@@ -93,3 +93,20 @@ Some configurations were added to allow filtering results.
 ## Dockerizing application
 
 To make initialization easier, I've created a `Dockerfile` and `docker-compose.yaml` files to start both the server and database in one go.
+
+## Creating the frontend
+
+The first step was to bootstrap the client code with Vite and TailwindCSS
+
+```bash
+npm create vite@latest todos -- --template react-ts
+npm install
+npm run dev # check if installation was successful
+
+```bash
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+npm i -D @types/node
+```
+
+I've decided to use [shadcn/ui](https://ui.shadcn.com/) for the components, both because it looks good and I wanted to try it.
