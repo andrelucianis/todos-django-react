@@ -75,3 +75,13 @@ After the models were created, the migrations were applied to the database:
 python manage.py makemigrations
 python manage.py migrate
 ```
+
+## Adding tests with Pytest
+
+Install the dependencies:
+
+```bash
+pipenv install pytest pytest-django
+```
+
+I've then added a `pytest.ini` file, wrote some tests and added a pipenv shortcut on `Pipfile` to run the tests with `pipenv run test`.

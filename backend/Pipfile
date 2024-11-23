@@ -10,6 +10,11 @@ djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
 django-rest-knox = "*"
+pytest = "*"
+pytest-django = "*"
+
+[scripts]
+test = "pytest -rP"
 
 [dev-packages]
 
