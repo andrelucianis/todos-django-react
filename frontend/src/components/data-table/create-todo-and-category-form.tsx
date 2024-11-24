@@ -29,7 +29,7 @@ export function CreateTodoAndCategoryForm({
     try {
       const newTodo = await api.create(token!, todoDescription);
       setTodos((todos) => [...todos, newTodo]);
-      setTodoDescription(""); // Clear the input after adding the todo
+      setTodoDescription("");
     } catch (e) {
       if (e instanceof Error) {
         toast({
@@ -107,6 +107,11 @@ export function CreateTodoAndCategoryForm({
           placeholder="I need to..."
           value={todoDescription}
           onChange={(e) => setTodoDescription(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              onAddTodo();
+            }
+          }}
           className="h-10 w-[150px] lg:w-[250px]"
         />
         <Button className="h-10 text-md" onClick={onAddTodo}>
